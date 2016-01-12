@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>tumblr-templatr</title>
+    <style>
+
+      html, body {
+        margin: 0; padding: 0;
+      }
+
+      webview {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <webview id='wv' src='https://www.tumblr.com/login' disablewebsecurity></webview>
+
+    <script>
+      'use strict';
+
+      const swig = require('swig');
+      const fs = require('fs');
+      const config = require('./.config.json');
+      const glob = require('glob');
+      const path = require('path');
+      var watch = require('glob-watcher');
+
+      var wv = document.getElementById('wv');
+
+      var login = function(){
+        console.log('login');
+        wv.executeJavaScript(`signup_email.value = '${config.email}';`, true);
+        wv.executeJavaScript(`signup_password.value = '${config.password}';`, true);
+        wv.executeJavaScript('signup_forms_submit.click()', true);
+      };
+
+      var doneLoading = function(){
+        console.log('done loading');
+        if(wv.src.match('/login') !== null){
+          login();
+        }else if(wv.src.match('/dashboard') !== null){
+          wv.src = `https://www.tumblr.com/customize/${config.username}?redirect_to=/settings/blog/${config.username}`;
+        }else if(wv.src.match('/customize') !== null){
+          watchPartials();
+        }
+      };
+      wv.addEventListener('dom-ready', doneLoading);
+
+      var compilePartials = function(){
+        var templatePath = path.resolve(config.__dirname, config.template);
+        // console.log(templatePath)
+        swig.invalidateCache();
+        var f = swig.renderFile(templatePath, config);
+        // console.log(f)
+
+        fs.writeFile(path.resolve(config.__dirname,'./__output.html'), f);
+        return f;
+      };
+
+      // listen for template file changes, build template
+      var watchPartials = ()=>{
+        wv.executeJavaScript('edit_html_button.click()', true);
+        // get absolute path of config
+        var watchPath = path.resolve(config.__dirname, config.watch);
+        watch([watchPath], () => {
+          console.warn('watched!');
+          var html = compilePartials();
+          // wv.executeJavaScript(`document.querySelector('.ace_content').innerText = '${html}'`)
+          //TODO: select editor
+          // wv.executeJavaScript('editor.click()', true);
+          wv.selectAll();
+          wv.replace(html);
+        });
+      };
+
+    </script>
+  </body>
+</html>

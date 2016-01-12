@@ -1,0 +1,23 @@
+{
+  "name": "tumblr-templatr",
+  "version": "0.0.1",
+  "description": "",
+  "main": "electron-client/main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron ./electron-client/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atom/electron-quick-start.git"
+  },
+  "keywords": [],
+  "author": "Tool of North America",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  },
+  "dependencies": {
+    "glob": "^6.0.4",
+    "gulp": "^3.9.0",
+    "swig": "^1.4.2"
+  }
+}
