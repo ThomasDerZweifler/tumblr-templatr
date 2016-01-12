@@ -2,7 +2,7 @@
   "name": "tumblr-templatr",
   "version": "0.0.1",
   "description": "",
-  "main": "electron-client/main.js",
+  "main": "tumblr-templatr.js",
   "scripts": {
     "start": "./node_modules/.bin/electron ./electron-client/main.js"
   },
@@ -18,6 +18,7 @@
   "dependencies": {
     "glob": "^6.0.4",
     "gulp": "^3.9.0",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "electron-prebuilt": "^0.36.0"
   }
 }
