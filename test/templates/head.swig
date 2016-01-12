@@ -1,7 +1,7 @@
 <head>
     {MobileAppHeaders}
     <meta charset="utf-8">
-    <title>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
+    <title>{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
     {block:Description}
     <meta name="description" content="{MetaDescription}">
     {/block:Description}

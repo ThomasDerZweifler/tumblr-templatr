@@ -19,7 +19,7 @@
   </head>
   <body>
 
-    <webview id='wv' src='https://www.tumblr.com/login' disablewebsecurity></webview>
+    <webview id='wv' src='https://www.tumblr.com/login'></webview>
 
     <script>
       'use strict';
@@ -29,7 +29,9 @@
       const config = require('./.config.json');
       const glob = require('glob');
       const path = require('path');
-      var watch = require('glob-watcher');
+      const watch = require('glob-watcher');
+      const electron = require('electron');
+      const remote = electron.remote;
 
       var wv = document.getElementById('wv');
 
@@ -74,6 +76,10 @@
           // wv.executeJavaScript(`document.querySelector('.ace_content').innerText = '${html}'`)
           //TODO: select editor
           // wv.executeJavaScript('editor.click()', true);
+          // wv.selectAll();
+          // wv.replace(html);
+          // wv.executeJavaScript('document.querySelector(".ace_text-input").focus()', true);
+          wv.executeJavaScript('document.getElementsByClassName("ace_text-input")[1].focus()', true);
           wv.selectAll();
           wv.replace(html);
         });
