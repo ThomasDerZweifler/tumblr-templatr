@@ -4,3 +4,4 @@ node_modules
 test/config.js
 test/__output.html
 electron-client/.config.json
+.idea
