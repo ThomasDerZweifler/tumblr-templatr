@@ -1,6 +1,8 @@
 # tumblr-templatr
 Sync local tumblr theme templates to tumblr.com. 
 
+![](https://positlabs.github.io/tumblr-templatr/assets/imgs/templatr-infographic.jpg)
+
 Supports swig templates: http://paularmstrong.github.io/swig/
 
 
