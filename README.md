@@ -32,7 +32,7 @@ Start templatr
 
 
 ```
-var templatr = require('./path/to/tumblr-templatr/');
+var templatr = require('tumblr-templatr');
 var path = require('path');
 var absPathToConfig = path.resolve(path.join(__dirname, './config.js'));
 
