@@ -6,6 +6,10 @@ Sync local tumblr theme templates to tumblr.com.
 Supports swig templates: http://paularmstrong.github.io/swig/
 
 
+## Install
+`npm install --save-dev tumblr-templatr`
+
+
 ## Usage
 
 Define config values in a file. See sample-config.js.
