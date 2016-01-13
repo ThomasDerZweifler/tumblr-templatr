@@ -36,7 +36,7 @@
       var wv = document.getElementById('wv');
 
       var login = function(){
-        console.log('login');
+        // console.log('login');
         wv.executeJavaScript(`signup_email.value = '${config.email}';`, true);
         wv.executeJavaScript(`signup_password.value = '${config.password}';`, true);
         wv.executeJavaScript('signup_forms_submit.click()', true);

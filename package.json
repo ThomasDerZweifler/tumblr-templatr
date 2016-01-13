@@ -1,7 +1,7 @@
 {
   "name": "tumblr-templatr",
   "version": "0.0.1",
-  "description": "",
+  "description": "Sync local tumblr theme templates to tumblr.com.",
   "main": "tumblr-templatr.js",
   "scripts": {
     "start": "./node_modules/.bin/electron ./electron-client/main.js",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/atom/electron-quick-start.git"
+    "url": "git+https://github.com/positlabs/tumblr-templatr.git"
   },
-  "keywords": [],
-  "author": "Tool of North America",
+  "keywords": ["tumblr", "template", "custom", "theme", "Electron"],
+  "author": "positlabs",
   "devDependencies": {
     "electron-prebuilt": "^0.36.0"
   },
