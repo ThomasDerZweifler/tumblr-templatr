@@ -10,7 +10,8 @@ module.exports = function(configPath){
 	config.__dirname = path.parse(configPath).dir;
 
 	// write config to tmp file, then...
-	fs.writeFile('./electron-client/.config.json', JSON.stringify(config), (err) => {
+	var configCopyPath = path.join(__dirname, './electron-client/.config.json');
+	fs.writeFile(configCopyPath, JSON.stringify(config), (err) => {
 		if(err) {
 			console.log(err);
 		}else{
