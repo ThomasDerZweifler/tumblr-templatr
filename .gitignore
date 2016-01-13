@@ -8,3 +8,4 @@ test/__output.html
 # ignore private stuff
 test/config.js
 electron-client/.config.json
+.idea

@@ -73,15 +73,11 @@
         watch([watchPath], () => {
           // console.warn('watched!');
           var html = compilePartials();
-          // wv.executeJavaScript(`document.querySelector('.ace_content').innerText = '${html}'`)
-          //TODO: select editor
-          // wv.executeJavaScript('editor.click()', true);
-          // wv.selectAll();
-          // wv.replace(html);
-          // wv.executeJavaScript('document.querySelector(".ace_text-input").focus()', true);
           wv.executeJavaScript('document.getElementsByClassName("ace_text-input")[1].focus()', true);
           wv.selectAll();
           wv.replace(html);
+          wv.executeJavaScript(`document.querySelector("[data-action='update_preview']").click()`, true);
+          wv.executeJavaScript(`document.querySelector("[data-action='save_settings']").click()`, true);
         });
       };
 
