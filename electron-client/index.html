@@ -42,17 +42,22 @@
 				wv.executeJavaScript('signup_forms_submit.click()', true);
 			};
 
-			var doneLoading = function(){
+			var onDomReady = function(){
 				// console.log('done loading');
 				if(wv.src.match('/login') !== null){
 					login();
-				}else if(wv.src.match('/dashboard') !== null){
-					wv.src = `https://www.tumblr.com/customize/${config.username}?redirect_to=/settings/blog/${config.username}`;
 				}else if(wv.src.match('/customize') !== null){
 					watchPartials();
 				}
 			};
-			wv.addEventListener('dom-ready', doneLoading);
+			var onRedirect = function(){
+				if(wv.src.match('/dashboard') !== null){
+					// logged in, now go to customize screen
+					wv.src = `https://www.tumblr.com/customize/${config.username}?redirect_to=/settings/blog/${config.username}`;
+				}
+			};
+			wv.addEventListener('dom-ready', onDomReady);
+			wv.addEventListener('did-get-redirect-request', onRedirect);
 
 			var compilePartials = function(){
 				var templatePath = path.resolve(config.__dirname, config.template);
@@ -78,7 +83,11 @@
 					wv.executeJavaScript('document.getElementsByClassName("ace_text-input")[1].focus()', true);
 					wv.selectAll();
 					wv.replace(html);
+
+					// update preview
 					wv.executeJavaScript(`document.querySelector("[data-action='update_preview']").click()`, true);
+
+					// save
 					if(config.autoPublish){
 						wv.executeJavaScript(`document.querySelector("[data-action='save_settings']").click()`, true);
 					}
