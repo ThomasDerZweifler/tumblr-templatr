@@ -43,7 +43,7 @@
       };
 
       var doneLoading = function(){
-        console.log('done loading');
+        // console.log('done loading');
         if(wv.src.match('/login') !== null){
           login();
         }else if(wv.src.match('/dashboard') !== null){
@@ -71,7 +71,7 @@
         // get absolute path of config
         var watchPath = path.resolve(config.__dirname, config.watch);
         watch([watchPath], () => {
-          console.warn('watched!');
+          // console.warn('watched!');
           var html = compilePartials();
           // wv.executeJavaScript(`document.querySelector('.ace_content').innerText = '${html}'`)
           //TODO: select editor
