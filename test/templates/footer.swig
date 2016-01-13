@@ -4,7 +4,7 @@
         {block:Pagination}
         <div id="pagination">
             {block:PreviousPage}
-            <a href="{PreviousPage}" class="previous" data-current-page="{CurrentPage}" data-total-pages="{TotalPages}">{lang:Previous}<span class="bg"></span></a>
+            <a href="{PreviousPage}" class="previous" data-current-page="{CurrentPage}" data-total-pages="{TotalPages}">{lang:Previous}<span class="bg"></span></a> 
             {/block:PreviousPage}
             {block:NextPage}
             <a href="{NextPage}" class="next" data-current-page="{CurrentPage}" data-total-pages="{TotalPages}">{lang:Next}<span class="bg"></span></a>
