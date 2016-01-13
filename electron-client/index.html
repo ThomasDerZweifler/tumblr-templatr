@@ -61,19 +61,19 @@
 				var f = swig.renderFile(templatePath, config);
 				// console.log(f)
 
-				fs.writeFile(path.resolve(config.__dirname,'./__output.html'), f);
+				// fs.writeFile(path.resolve(config.__dirname,'./__output.html'), f);
 				return f;
 			};
 
 			// listen for template file changes, build template
 			var watchPartials = ()=>{
+
+				// open edit panel
 				wv.executeJavaScript('edit_html_button.click()', true);
-				// get absolute path of config
+				
 				var watchPaths = config.watch.map(p=>{ return path.resolve(config.__dirname, p); });
-				// console.log('watchPaths', watchPaths);
-				// var watchPath = path.resolve(config.__dirname, config.watch);
 				watch(watchPaths, () => {
-					console.warn('watched!');
+					// console.warn('watched!');
 					var html = compilePartials();
 					wv.executeJavaScript('document.getElementsByClassName("ace_text-input")[1].focus()', true);
 					wv.selectAll();
