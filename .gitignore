@@ -6,6 +6,6 @@ node_modules
 test/__output.html
 
 # ignore private stuff
-test/config.js
+test/_credentials.js
 electron-client/.config.json
 .idea

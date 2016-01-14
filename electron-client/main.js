@@ -14,12 +14,6 @@ function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({width: 800, height: 600});
 
-	// Open the DevTools.
-	// mainWindow.webContents.openDevTools();
-
-	// and load the index.html of the app.
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
-
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function() {
 		// Dereference the window object, usually you would store windows
@@ -27,11 +21,30 @@ function createWindow () {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+	// make sure there's not old login cookies hanging around
+	clearCookies().then(()=>{
+		// and load the index.html of the app.
+		mainWindow.loadURL('file://' + __dirname + '/index.html');
+	});
 }
+
+var clearCookies = function(){
+	return new Promise((resolve, reject)=>{
+		mainWindow.webContents.session.clearStorageData({
+			storages: ['appcache', 'cookies']}, 
+			()=>{
+				resolve();
+			}
+		);
+	});
+};
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', createWindow);
+app.on('ready', ()=>{
+	createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

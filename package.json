@@ -11,15 +11,21 @@
     "type": "git",
     "url": "git+https://github.com/positlabs/tumblr-templatr.git"
   },
-  "keywords": ["tumblr", "template", "custom", "theme", "Electron"],
+  "keywords": [
+    "tumblr",
+    "template",
+    "custom",
+    "theme",
+    "Electron"
+  ],
   "author": "positlabs",
   "devDependencies": {
     "electron-prebuilt": "^0.36.0"
   },
   "dependencies": {
+    "callsite": "^1.0.0",
+    "electron-prebuilt": "^0.36.0",
     "glob": "^6.0.4",
-    "gulp": "^3.9.0",
-    "swig": "^1.4.2",
-    "electron-prebuilt": "^0.36.0"
+    "gulp": "^3.9.0"
   }
 }

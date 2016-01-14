@@ -24,30 +24,23 @@
 		<script>
 			'use strict';
 
-			const swig = require('swig');
 			const fs = require('fs');
 			const config = require('./.config.json');
 			const glob = require('glob');
-			const path = require('path');
 			const watch = require('glob-watcher');
 			const electron = require('electron');
 			const remote = electron.remote;
 
 			var wv = document.getElementById('wv');
 
-			var login = function(){
-				// console.log('login');
-				wv.executeJavaScript(`signup_email.value = '${config.email}';`, true);
-				wv.executeJavaScript(`signup_password.value = '${config.password}';`, true);
-				wv.executeJavaScript('signup_forms_submit.click()', true);
-			};
-
 			var onDomReady = function(){
 				// console.log('done loading');
 				if(wv.src.match('/login') !== null){
 					login();
 				}else if(wv.src.match('/customize') !== null){
-					watchPartials();
+					watchTemplate();
+					// open edit panel
+					wv.executeJavaScript('edit_html_button.click()', true);
 				}
 			};
 			var onRedirect = function(){
@@ -59,39 +52,51 @@
 			wv.addEventListener('dom-ready', onDomReady);
 			wv.addEventListener('did-get-redirect-request', onRedirect);
 
-			var compilePartials = function(){
-				var templatePath = path.resolve(config.__dirname, config.template);
-				// console.log(templatePath)
-				swig.invalidateCache();
-				var f = swig.renderFile(templatePath, config);
-				// console.log(f)
-
-				// fs.writeFile(path.resolve(config.__dirname,'./__output.html'), f);
-				return f;
+			var login = function(){
+				// console.log('login');
+				wv.executeJavaScript(`signup_email.value = '${config.email}';`, true);
+				wv.executeJavaScript(`signup_password.value = '${config.password}';`, true);
+				wv.executeJavaScript('signup_forms_submit.click()', true);
 			};
 
-			// listen for template file changes, build template
-			var watchPartials = ()=>{
-
-				// open edit panel
-				wv.executeJavaScript('edit_html_button.click()', true);
+			// listen for template file changes
+			var watching = false;
+			var watchTemplate = function(){
+				// watchTemplate = function(){}; // only execute once
+				if(watching) return;
+				watching = true;
 				
-				var watchPaths = config.watch.map(p=>{ return path.resolve(config.__dirname, p); });
-				watch(watchPaths, () => {
-					// console.warn('watched!');
-					var html = compilePartials();
-					wv.executeJavaScript('document.getElementsByClassName("ace_text-input")[1].focus()', true);
-					wv.selectAll();
-					wv.replace(html);
-
-					// update preview
-					wv.executeJavaScript(`document.querySelector("[data-action='update_preview']").click()`, true);
-
-					// save
-					if(config.autoPublish){
-						wv.executeJavaScript(`document.querySelector("[data-action='save_settings']").click()`, true);
-					}
+				watch([config.template], () => {
+					console.warn('watched', config.template);
+					fs.readFile(config.template, 'utf-8', (err, data) => {
+						if (err) throw err;
+						// save
+						config.autoPublish ? publish(data) : preview(data);
+					});
 				});
+			};
+
+			var preview = function(html){
+				wv.executeJavaScript(`
+					customize.click();
+					document.querySelector('.ace_content').click();
+					document.querySelector('.ace_text-input').focus();
+					document.querySelector('.ace_text-input').click();
+				`, true);
+				wv.selectAll();
+				wv.replace(html);
+
+				// update preview
+				wv.executeJavaScript(`
+					document.querySelector('[data-action="update_preview"]').click();
+				`, true);
+			};
+
+			var publish = function(html){
+				preview(html);
+				wv.executeJavaScript(`
+					document.querySelector('[data-action="save_settings"]').click();
+				`, true);
 			};
 
 		</script>
