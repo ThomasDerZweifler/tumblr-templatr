@@ -1,6 +1,6 @@
 {
   "name": "tumblr-templatr",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Sync local tumblr theme templates to tumblr.com.",
   "main": "tumblr-templatr.js",
   "scripts": {
