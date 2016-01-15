@@ -30,6 +30,9 @@
 			const watch = require('glob-watcher');
 			const electron = require('electron');
 			const remote = electron.remote;
+			const express = require('express');
+			const bodyParser = require('body-parser');
+
 
 			var wv = document.getElementById('wv');
 
@@ -62,7 +65,6 @@
 			// listen for template file changes
 			var watching = false;
 			var watchTemplate = function(){
-				// watchTemplate = function(){}; // only execute once
 				if(watching) return;
 				watching = true;
 				
@@ -76,20 +78,54 @@
 				});
 			};
 
-			var preview = function(html){
-				wv.executeJavaScript(`
-					customize.click();
-					document.querySelector('.ace_content').click();
-					document.querySelector('.ace_text-input').focus();
-					document.querySelector('.ace_text-input').click();
-				`, true);
-				wv.selectAll();
-				wv.replace(html);
+			var setupServer = function(){
+				var cmdServer = express();
+				cmdServer.use(bodyParser());
 
-				// update preview
-				wv.executeJavaScript(`
-					document.querySelector('[data-action="update_preview"]').click();
-				`, true);
+				// pollable endpoint that will say when everything is set up
+				cmdServer.get('/editable', (req, res) => {
+					// console.log('/editable');
+
+
+					//FIXME: need a better test for this. Can we get some results back from webview?
+					if(wv.src.match('/customize') !== null){
+						res.send(true);
+					}else{
+						res.send(false);
+					}
+
+					
+				});
+				cmdServer.post('/preview', (req, res) => {
+					// console.log('got /preview', req.body);
+					preview(req.body.html);
+					res.send('ok');
+				});
+				cmdServer.post('/publish', (req, res) => {
+					// console.log('got /publish', req.body);
+					publish(req.body.html);
+					res.send('ok');
+				});
+
+				cmdServer.listen(config.port);
+			};
+
+			var preview = function(html){
+				wv.sendInputEvent({
+					type: 'mouseDown',
+					x: 50, 
+					y: 50,
+					clickCount: 3
+				});
+				setTimeout(()=>{
+					wv.selectAll();
+					wv.replace(html);
+
+					// update preview
+					wv.executeJavaScript(`
+						document.querySelector('[data-action="update_preview"]').click();
+					`, true);
+				}, 30);
 			};
 
 			var publish = function(html){
@@ -99,6 +135,7 @@
 				`, true);
 			};
 
+			setupServer();
 		</script>
 	</body>
 </html>

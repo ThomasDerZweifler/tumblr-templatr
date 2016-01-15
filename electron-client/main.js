@@ -32,7 +32,7 @@ function createWindow () {
 var clearCookies = function(){
 	return new Promise((resolve, reject)=>{
 		mainWindow.webContents.session.clearStorageData({
-			storages: ['appcache', 'cookies']}, 
+			storages: ['cookies']}, 
 			()=>{
 				resolve();
 			}

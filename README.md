@@ -35,11 +35,17 @@ var config = {
 
 
 ```
-var templatr = require('tumblr-templatr');
+var Templatr = require('tumblr-templatr');
 
 // this will boot up electron client, log in, and open the template editing page
-templatr( config );
+var templatr = new Templatr( config );
 
+// wait for template to become editable
+templatr.on('editable', ()=>{
+	templatr.preview('<h1>hello tumblr!</h1>');
+	// or
+	templatr.publish('<h1>hello tumblr!</h1>');
+});
 ```
 
 

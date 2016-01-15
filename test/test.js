@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var templatr = require('../tumblr-templatr');
+var Templatr = require('../tumblr-templatr');
 var credentials = require('./_credentials');
 var templatrConfig = {
 	
@@ -14,7 +14,14 @@ var templatrConfig = {
 	template: './index.html',
 
 	// save template to tumblr?
-	autoPublish: true
+	autoPublish: false
 };
 
-templatr( templatrConfig );
+var t = new Templatr( templatrConfig );
+
+t.on('editable', ()=>{
+	t.preview(`<h1>hello</h1>`);
+});
+// setInterval(()=>{
+// 	t.publish(`<h1>hello</h1>`);
+// }, 5000);
