@@ -9,8 +9,8 @@ var templatrConfig = {
 	// tumblr credentials
 	// stored in non-committed file
 	email: credentials.email,
-	username: credentials.username,
 	password: credentials.password,
+	blogname: credentials.blogname,
 	
 	// absolute path to template file
 	template: path.join(__dirname, 'index.html'),

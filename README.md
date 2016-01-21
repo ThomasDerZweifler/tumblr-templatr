@@ -18,8 +18,8 @@ var config = {
 	// tumblr credentials
 	// I RECOMMEND YOU STORE THESE IN A NON-COMMITTED FILE!!
 	email: 'your_email@gmail.com',
-	username: 'tumblr_user_name',
 	password: 'tumblr_password',
+	blogname: 'tumblr_blog_name',
 
 	// absolute path to template file
 	template: path.join(__dirname, 'index.html'),
