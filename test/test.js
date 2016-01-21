@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
+var path = require('path');
 var Templatr = require('../tumblr-templatr');
+
 var credentials = require('./_credentials');
 var templatrConfig = {
 	
@@ -10,8 +12,8 @@ var templatrConfig = {
 	username: credentials.username,
 	password: credentials.password,
 	
-	// path relative to caller
-	template: './index.html',
+	// absolute path to template file
+	template: path.join(__dirname, 'index.html'),
 
 	// save template to tumblr?
 	autoPublish: false

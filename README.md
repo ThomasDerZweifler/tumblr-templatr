@@ -21,8 +21,8 @@ var config = {
 	username: 'tumblr_user_name',
 	password: 'tumblr_password',
 
-	// the html file to copy from
-	template: './index.html',
+	// absolute path to template file
+	template: path.join(__dirname, 'index.html'),
 
 	// should it automatically publish, or just update preview?
 	// useful for collaborative dev where you don't want to nuke other's changes
@@ -51,6 +51,4 @@ templatr.on('editable', ()=>{
 
 ## Notes
 
-Having the Electron dev tools open messes with focus on the webview. Be aware that the html copy might fail while using Electron's dev tools.
-
-This hack makes it much faster to preview changes to templates, without having to use the custom editor on tumblr.com. However, it won't work well if multiple devs are working on the same tumblr account.
+This hack makes it much faster to preview changes to templates, without having to use the custom editor on tumblr.com. However, it won't work well if multiple devs are working on the same tumblr blog. 

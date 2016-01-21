@@ -6,7 +6,6 @@ const http = require('http');
 const request = require('request');
 const exec = require('child_process').exec;
 const electronPrebuilt = require('electron-prebuilt');
-const callsite = require('callsite');
 const EventEmitter = require('events');
 const util = require('util');
 
@@ -21,10 +20,6 @@ var Templatr = function(config){
 		config.port = config.port || 3434;
 
 		return new Promise((resolve, reject) => {
-			// resolve relative paths
-			var baseDir = path.dirname( callsite()[1].getFileName() );
-			if(config.template) config.template = path.resolve(baseDir, config.template);
-
 			// write config to tmp file, then...
 			var configCopyPath = path.join(__dirname, 'electron-client', '.config.json');
 			fs.writeFile(configCopyPath, JSON.stringify(config), (err) => {
